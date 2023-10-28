@@ -1,10 +1,11 @@
 {
-  "name": "db_mongo",
+  "name": "@stdeepak22/db_mongo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "import": "node seed_init/importData.js",
     "start": "node src/index.js"
   },
   "keywords": [],
