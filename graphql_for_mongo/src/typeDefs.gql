@@ -1,8 +1,42 @@
 #gql
+scalar Date
+
 type User {
     id: String!
-    name: String
+    name: String!
+    email: String!
+    phone: String
+    age: Int
+    reviews: [Review!]
 }
+type Review {
+    id: String!
+    comment: String!
+    rating: Int!
+    addedAt: Date
+    user: User!
+    restaurant: Restaurant
+}
+type Address {
+    street: String,
+    city: String,
+    state: String,
+    country: String
+}
+
+type Restaurant {
+    id: String!
+    name: String!
+    phoneNumber: String
+    address: Address
+    reviews: [Review!]
+}
+
 type Query {
-    users: [User!]
+    users: [User!],
+    userById(id: String): User,
+    restaurants: [Restaurant!],
+    restaurantById(id: String): Restaurant,
+    reviews: [Review!],
+    reviewById(id: String): Review
 }
