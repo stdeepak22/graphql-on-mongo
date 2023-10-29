@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.9.4",
+    "@stdeepak22/db_mongo": "file:../db_mongo",
     "graphql": "^16.8.1"
   },
   "devDependencies": {
