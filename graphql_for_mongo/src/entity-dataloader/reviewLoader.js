@@ -12,7 +12,6 @@ const reviewDataLoaderById = new DataLoader(async ids => {
 const reviewDataLoaderByUserId = new DataLoader(async ids => {
     ids = ids.map(c => c.toString());
     let reviews = await MongooseModel.Review.find({ user_id: { $in: Array.from(new Set(ids)) } })
-    console.log(`review length from DB`, reviews.length);
     return ids.map(id => reviews.filter(u => u.user_id.equals(id)));
 }, { cache: enableCache })
 
