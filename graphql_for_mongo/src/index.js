@@ -3,6 +3,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { readFile } from 'fs/promises'
 import { DB, MongooseModel } from '@stdeepak22/db_mongo'
 import { queryCountPlugin } from './queryCountPlugin.js';
+import { restaurantDataLoaderByReviewId, reviewDataLoaderById, reviewDataLoaderByUserId, userDataLoaderById } from './entity-dataloader/index.js';
 
 let typeDefs = await readFile('src/typeDefs.gql', { encoding: 'utf-8' });
 await DB.ConnectDB();
@@ -22,21 +23,21 @@ const aServer = new ApolloServer({
         },
         User: {
             reviews: async (user) => {
-                return await MongooseModel.Review.find({ user_id: user.id });
+                return await reviewDataLoaderByUserId.load(user.id);
             }
         },
         Review: {
             user: async (review) => {
-                return await MongooseModel.User.findById(review.user_id)
+                return await userDataLoaderById.load(review.user_id);
             },
             restaurant: async (review) => {
-                return await MongooseModel.Restaurant.findOne({ reviews: review.id })
+                return await restaurantDataLoaderByReviewId.load(review.id)
             }
         },
         Restaurant: {
             reviews: async (restaurant) => {
                 if (restaurant.reviews.length) {
-                    return await MongooseModel.Review.find({ _id: { $in: restaurant.reviews } })
+                    return await reviewDataLoaderById.loadMany(restaurant.reviews);
                 } else {
                     return [];
                 }

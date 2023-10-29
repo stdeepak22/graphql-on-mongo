@@ -14,6 +14,7 @@
   "dependencies": {
     "@apollo/server": "^4.9.4",
     "@stdeepak22/db_mongo": "file:../db_mongo",
+    "dataloader": "^2.2.2",
     "graphql": "^16.8.1"
   },
   "devDependencies": {
