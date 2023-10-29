@@ -1,22 +1,35 @@
 #gql
 scalar Date
 
+"""
+User - who does provide review for restaurants.
+"""
 type User {
     id: String!
     name: String!
     email: String!
     phone: String
     age: Int
+    "refers to all the reviews provided by that user."
     reviews: [Review!]
 }
+
+"""
+Review - a review for a restaurant provided by user
+"""
 type Review {
     id: String!
     comment: String!
     rating: Int!
     addedAt: Date
+    "refers to user who provided that review."
     user: User!
+    "refers to restaurant this review is for."
     restaurant: Restaurant
 }
+"""
+Address - defines address for restaurant
+"""
 type Address {
     street: String,
     city: String,
@@ -24,11 +37,15 @@ type Address {
     country: String
 }
 
+"""
+Restaurant - whose review "User" will provide
+"""
 type Restaurant {
     id: String!
     name: String!
     phoneNumber: String
     address: Address
+    "refers to all the reviews belongs to this restaurant"
     reviews: [Review!]
 }
 
