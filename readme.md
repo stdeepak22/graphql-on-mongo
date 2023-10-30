@@ -22,7 +22,7 @@ install the node modules for both the directory using `npm install`.
 
 ## prepare and start mongodb
 
-if you don't have mongo db installed locally, and have docker install, you can get mongodb instance up and running in minutes by using the `docker-compose.yaml` file available at -
+if you don't have mongo db installed locally, and have docker installed, you can get mongodb container up and running in minutes using the `docker-compose.yaml` file available at -
 > `db_mongo\seed_init\docker-compose.yaml`
 
 it will download docker image, and will start container of `mongodb` and `mongo-express` (for exploring the database).  It will configure the credentials of DB (`inside "admin" database`) as following - 
@@ -30,7 +30,7 @@ it will download docker image, and will start container of `mongodb` and `mongo-
 * user name = `root_secure`
 * password = `pass_secure`
 
-File `mongooseConnection.js` is having configuration about db server, and its credentails, if you using locally installed mongodb, make sure you change the configuration as per your mongodb server. This `mongooseConnection.js` file is available at -
+File `mongooseConnection.js` is having configuration about db server, and its credentails, if you are using locally installed mongodb, make sure you change the configuration as per your mongodb server in this file. This `mongooseConnection.js` file is available at -
 > `db_mongo\src\db\mongooseConnection.js`
 
 ![mongooseConnection.js](db_mongo/seed_init/readme_assets/connection-js.jpg)
@@ -39,14 +39,14 @@ we are using the npm package [mongoose](https://www.npmjs.com/package/mongoose) 
 
 Now when we have mongodb up and running, we'll import some dummy data to this `restaurants_reviews` db. There are mainly 3 entities - `User`, `Review` by user for a restaurant, and `Restaurant` itself. Dummy json data has linked among these entities, and json files are available at `db_mongo\seed_init\dummy-data\` 
 
-* `30_Users.json` - this contains 30 users, with some basic properties.
-* `100_Restaurants.json` - this contains 100 restaurants, with some basic properties, and `id` of reviews for each restaurants if any.
+* `30_Users.json` - this contains 30 users, with some basic user's properties eg. `name`, `email`, `phone` etc.
+* `100_Restaurants.json` - this contains 100 restaurants, with some properties, and `id` of reviews for each restaurants if any.
 * `294_Reviews.json` - this contains 294 reviews by some users from above 30 users list, for above 100 restaurants.
 
-Now lets import this dummy data to 3 collections by running script - 
+Now lets import this dummy data to 3 collections by running below script - 
 > `npm run import`
 
-which will eventually execute the logic written inside `db_mongo\seed_init\importData.js` file. If everything went well, we will see something like below - 
+which will eventually execute the logic written in `db_mongo\seed_init\importData.js` file. If everything went well, we will see something like below - 
 
 ![importedSuccessfully](db_mongo/seed_init/readme_assets/import-done.jpg)
 
@@ -76,6 +76,6 @@ Lets open graphQL testing client provided by apollo server at http://localhost:4
 ![graphQL_queryAndResult](db_mongo/seed_init/readme_assets/graphQLQueryAndResult.jpg)
 
 ## Bonus Point - 
-On your terminal (where you started apollo server using `npm start`) you can see how many queries are fired overall for that GraphQL query, remembers its optimated using the [dataloader](https://www.npmjs.com/package/dataloader).
+On your terminal (where you started apollo server using `npm start`) you can see how many queries are fired overall for that GraphQL query, remembers its optimized using the [dataloader](https://www.npmjs.com/package/dataloader).
 
 ![queryCountLog](db_mongo/seed_init/readme_assets/queryCountLog.jpg)
